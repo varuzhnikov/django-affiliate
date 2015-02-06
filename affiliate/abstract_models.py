@@ -36,8 +36,8 @@ class AbstractAffiliateStats(models.Model):
         default=0)
     payments_count = models.IntegerField(_("Number of payments"), default=0)
     payments_amount = models.DecimalField(_("Payments amount"),
-        max_digits=6, decimal_places=2, default=D("0.0"))
-    rewards_amount = models.DecimalField(_("Rewards amount"), max_digits=6,
+        max_digits=16, decimal_places=2, default=D("0.0"))
+    rewards_amount = models.DecimalField(_("Rewards amount"), max_digits=16,
         decimal_places=2, default=D("0.0"))
     date = models.DateField(_("Date"), auto_now_add=True)
 
@@ -72,14 +72,14 @@ class AbstractAffiliate(models.Model):
     total_payments_count = models.IntegerField(
         _("Total attracted payments count"), default=0)
     total_payments_amount = models.DecimalField(
-        _("Total attracted payments amount"), max_digits=6, decimal_places=2,
+        _("Total attracted payments amount"), max_digits=16, decimal_places=2,
         default=D("0.0"))
     total_payed = models.DecimalField(_("Total payed to affiliate"),
-        max_digits=6, decimal_places=2, default=D("0.0"))
-    balance = models.DecimalField(_("Current balance"), max_digits=6,
+        max_digits=16, decimal_places=2, default=D("0.0"))
+    balance = models.DecimalField(_("Current balance"), max_digits=16,
         decimal_places=2, default=D("0.0"))
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
-    reward_amount = models.DecimalField(_("Reward amount"), max_digits=5,
+    reward_amount = models.DecimalField(_("Reward amount"), max_digits=16,
         decimal_places=2, default=REWARD_AMOUNT)
     reward_percentage = models.BooleanField(_('In percent'),
         default=REWARD_PERCENTAGE)
@@ -210,7 +210,7 @@ class AbstractWithdrawRequest(models.Model):
     status = models.CharField(_("Status"), max_length=10,
         choices=PAY_STATUS, default=PAY_STATUS.pending)
     amount = models.DecimalField(_("Payed to affiliate"),
-        max_digits=6, decimal_places=2, default=D("0.0"))
+        max_digits=16, decimal_places=2, default=D("0.0"))
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     payed_at = models.DateTimeField(_("Payed at"), null=True, blank=True)
 
