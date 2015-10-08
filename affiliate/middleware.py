@@ -43,7 +43,7 @@ class AffiliateMiddleware(object):
             aid = session.get('aid', None)
             if aid:
                 aid_dt = parser.parse(session.get('aid_dt', None))
-                if (now - aid_dt).seconds > AFFILIATE_SESSION_AGE:
+                if (now - aid_dt).total_seconds() > AFFILIATE_SESSION_AGE:
                     # aid expired
                     aid = None
                     session.pop('aid')
