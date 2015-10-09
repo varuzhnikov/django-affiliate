@@ -43,4 +43,4 @@ class AffiliateWithdrawRequestForm(forms.Form):
         return self.cleaned_data
 
     def save(self):
-        return self.affiliate.create_payment_request(self.data['amount'])
+        return self.affiliate.create_payment_request()
