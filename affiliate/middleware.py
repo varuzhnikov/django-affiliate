@@ -8,6 +8,7 @@ from .tools import get_affiliate_param_name, remove_affiliate_code,\
     get_seconds_day_left, get_affiliate_model, get_affiliatestats_model
 from relish.helpers.request import get_client_ip
 from dateutil import parser
+from django.db import IntegrityError
 
 l = logging.getLogger(__name__)
 
@@ -69,8 +70,12 @@ class AffiliateMiddleware(object):
             if not nb:
                 try:
                     aff = AffiliateModel.objects.get(aid=aid)
-                    AffiliateModelStats.objects.create(affiliate=aff,
-                        total_views=1, unique_visitors=1)
+
+                    try:
+                        AffiliateModelStats.objects.create(affiliate=aff,
+                            total_views=1, unique_visitors=1)
+                    except IntegrityError:
+                        pass
                 except AffiliateModel.DoesNotExist:
                     l.warning("Access with unknown affiliate code: {0}"
                         .format(aid))
