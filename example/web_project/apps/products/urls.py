@@ -2,7 +2,7 @@
 from django.conf.urls import patterns, url
 import views
 
-
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^$', views.ProductListView.as_view(), name='list'),
 )

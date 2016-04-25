@@ -5,7 +5,6 @@ from datetime import datetime
 from django.conf import settings
 from django.db.models.loading import get_model
 
-
 AFFILIATE_MODEL = settings.AFFILIATE_MODEL
 AFFILIATE_COUNT_MODEL = settings.AFFILIATE_COUNT_MODEL
 
@@ -41,5 +40,5 @@ def remove_affiliate_code(url):
 def get_seconds_day_left(now=None):
     now = now or datetime.now()
     end_day = datetime(year=now.year, month=now.month, day=now.day, hour=23,
-        minute=59, second=59)
-    return (end_day-now).seconds
+                       minute=59, second=59)
+    return (end_day - now).seconds

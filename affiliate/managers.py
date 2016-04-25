@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from .queryset import AffiliateStatsQuerySet, AffiliateBannerQuerySet,\
+from .queryset import AffiliateStatsQuerySet, AffiliateBannerQuerySet, \
     WithdrawRequestQuerySet
 
 

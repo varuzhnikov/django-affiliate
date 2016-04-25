@@ -7,9 +7,9 @@ from .models import User
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput,
-        label="Password")
+                               label="Password")
     password1 = forms.CharField(widget=forms.PasswordInput,
-        label="Confirm password")
+                                label="Confirm password")
 
     def clean_username(self):
         username_form = self.cleaned_data['username']

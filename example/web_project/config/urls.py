@@ -7,9 +7,11 @@ from django.conf.urls.static import static
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^users/', include("apps.users.urls", namespace="users")),
     url(r'^partner/', include("apps.partner.urls", namespace="partner")),

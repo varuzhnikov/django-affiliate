@@ -6,11 +6,10 @@ from django.utils.timezone import now
 
 
 class AffiliateStatsQuerySet(QuerySet):
-
     def incr_count_views(self, aid, date, ip_new=False):
-        kw = dict(total_views=F('total_views')+1)
+        kw = dict(total_views=F('total_views') + 1)
         if ip_new:
-            kw['unique_visitors'] = F('unique_visitors')+1
+            kw['unique_visitors'] = F('unique_visitors') + 1
         return self.filter(affiliate=aid, date=date).update(**kw)
 
     def for_last_days(self, days):
@@ -25,6 +24,5 @@ class WithdrawRequestQuerySet(QuerySet):
 
 
 class AffiliateBannerQuerySet(QuerySet):
-
     def enabled(self):
         return self.filter(enabled=True)

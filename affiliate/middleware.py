@@ -4,17 +4,16 @@ import logging
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.core.cache import get_cache
-from .tools import get_affiliate_param_name, remove_affiliate_code,\
+from .tools import get_affiliate_param_name, remove_affiliate_code, \
     get_seconds_day_left, get_affiliate_model, get_affiliatestats_model
 from relish.helpers.request import get_client_ip
 from dateutil import parser
 
 l = logging.getLogger(__name__)
 
-
 AFFILIATE_NAME = get_affiliate_param_name()
 AFFILIATE_SESSION = getattr(settings, 'AFFILIATE_SESSION', True)
-AFFILIATE_SESSION_AGE = getattr(settings, 'AFFILIATE_SESSION_AGE', 5*24*60*60)
+AFFILIATE_SESSION_AGE = getattr(settings, 'AFFILIATE_SESSION_AGE', 5 * 24 * 60 * 60)
 AFFILIATE_SKIP_PATH = getattr(settings, 'AFFILIATE_SKIP_PATH_STARTS', [])
 
 C_PFX = 'a_'
@@ -24,7 +23,6 @@ AffiliateModelStats = get_affiliatestats_model()
 
 
 class AffiliateMiddleware(object):
-
     def process_request(self, request):
         aid = None
         session = request.session
@@ -65,15 +63,15 @@ class AffiliateMiddleware(object):
                 timeout = get_seconds_day_left(now)
                 cache.set(c_key, aid_ip_pool, timeout)
             nb = AffiliateModelStats.objects.incr_count_views(aid, now,
-                ip_new=ip_new)
+                                                              ip_new=ip_new)
             if not nb:
                 try:
                     aff = AffiliateModel.objects.get(aid=aid)
                     AffiliateModelStats.objects.create(affiliate=aff,
-                        total_views=1, unique_visitors=1)
+                                                       total_views=1, unique_visitors=1)
                 except AffiliateModel.DoesNotExist:
                     l.warning("Access with unknown affiliate code: {0}"
-                        .format(aid))
+                              .format(aid))
         return response
 
     def is_track_path(self, path):
