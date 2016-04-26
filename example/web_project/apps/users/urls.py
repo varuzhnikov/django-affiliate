@@ -4,8 +4,8 @@ from django.contrib.auth.views import login, logout
 from django.views.generic import TemplateView
 import views
 
-
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^signin/$', login, name='login',
         kwargs={"template_name": "account/login.html"}),
     url(r'^signup/$', views.UserCreateView.as_view(), name='signup'),

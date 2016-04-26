@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from affiliate.admin import BaseAffiliateAdmin, BaseAffiliateStatsAdmin,\
+from affiliate.admin import BaseAffiliateAdmin, BaseAffiliateStatsAdmin, \
     BaseAffiliateBannerAdmin, BaseWithdrawRequestAdmin
-from .models import Affiliate, AffiliateStats, AffiliateBanner,\
+from .models import Affiliate, AffiliateStats, AffiliateBanner, \
     WithdrawRequest
 
 

@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import os
 from decimal import Decimal as D
 from os.path import join
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -33,9 +33,7 @@ ADMINS = (
 # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,7 +63,6 @@ ROOT_URLCONF = 'config.urls'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
@@ -76,15 +73,14 @@ DATABASES = {
     }
 }
 
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': ''
-        }
+    }
 }
 
-########## TEMPLATE CONFIGURATION
+# TEMPLATE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -103,9 +99,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 TEMPLATE_DIRS = (
     join(BASE_DIR, 'templates'),
 )
-########## END TEMPLATE CONFIGURATION
+# END TEMPLATE CONFIGURATION
 
-########## STATIC FILE CONFIGURATION
+# STATIC FILE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 STATIC_ROOT = join(os.path.dirname(BASE_DIR), 'staticfiles')
@@ -123,48 +119,48 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-########## END STATIC FILE CONFIGURATION
+# END STATIC FILE CONFIGURATION
 
-########## MEDIA CONFIGURATION
+# MEDIA CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = join(BASE_DIR, 'media')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
-########## END MEDIA CONFIGURATION
+# END MEDIA CONFIGURATION
 
-########## URL Configuration
+# URL Configuration
 ROOT_URLCONF = 'config.urls'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'config.wsgi.application'
-########## End URL Configuration
+# End URL Configuration
 
-########## AUTHENTICATION CONFIGURATION
+# AUTHENTICATION CONFIGURATION
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
-########## END AUTHENTICATION CONFIGURATION
+# END AUTHENTICATION CONFIGURATION
 
-########## Custom user app defaults
+# Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "/users/signin/"
-########## END Custom user app defaults
+# END Custom user app defaults
 
-########## SLUGLIFIER
+# SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = "slugify.slugify"
-########## END SLUGLIFIER
+# END SLUGLIFIER
 
-########## Mail settings
+# Mail settings
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, '../debug/emails')
 SITE_EMAIL = 'no-reply@affiliate.com'
 
-########## End mail settings
+# End mail settings
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -209,7 +205,7 @@ CACHES = {
     }
 }
 
-########## LOGGING CONFIGURATION
+# LOGGING CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -230,7 +226,7 @@ LOGGING = {
     'formatters': {
         'main_formatter': {
             'format': '%(levelname)s:%(name)s: %(message)s '
-            '(%(asctime)s; %(filename)s:%(lineno)d)',
+                      '(%(asctime)s; %(filename)s:%(lineno)d)',
             'datefmt': "%Y-%m-%d %H:%M:%S",
         },
     },
@@ -250,7 +246,7 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': '../logs/main.log',
-            'maxBytes': 1024*1024*5,  # 5 MB
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_false'],
@@ -259,7 +255,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': '../logs/main_debug.log',
-            'maxBytes': 1024*1024*5,  # 5 MB
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
             'backupCount': 7,
             'formatter': 'main_formatter',
             'filters': ['require_debug_true'],
@@ -290,7 +286,7 @@ LOGGING = {
         },
     }
 }
-########## END LOGGING CONFIGURATION
+# END LOGGING CONFIGURATION
 
 try:
     from settings_local import *

@@ -8,7 +8,6 @@ from django.conf import settings
 from .forms import UserForm
 from .models import User
 
-
 MIN_REQUEST_AMOUNT = getattr(settings, 'AFFILIATE_MIN_BALANCE_FOR_REQUEST', 0)
 
 

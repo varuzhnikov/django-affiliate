@@ -8,4 +8,5 @@ class UserAdmin(admin.ModelAdmin):
     create_form_class = UserCreationForm
     update_form_class = UserChangeForm
 
+
 admin.site.register(User, UserAdmin)

@@ -8,12 +8,12 @@ from .abstract_models import NotEnoughMoneyError
 
 class BaseAffiliateAdmin(admin.ModelAdmin):
     list_display = ("aid", "balance", "total_payed", "total_payments_count",
-        "created_at")
+                    "created_at")
 
 
 class BaseAffiliateStatsAdmin(admin.ModelAdmin):
     list_display = ("affiliate", "date", "total_views", "unique_visitors",
-        "payments_count", "payments_amount", "rewards_amount")
+                    "payments_count", "payments_amount", "rewards_amount")
 
 
 class BaseAffiliateBannerAdmin(admin.ModelAdmin):
@@ -22,10 +22,12 @@ class BaseAffiliateBannerAdmin(admin.ModelAdmin):
 
     def get_width(self, obj):
         return obj.image.width
+
     get_width.short_description = _("Width")
 
     def get_height(self, obj):
         return obj.image.height
+
     get_height.short_description = _("Height")
 
 
@@ -38,7 +40,7 @@ class BaseWithdrawRequestAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         resp = super(BaseWithdrawRequestAdmin, self).change_view(
             request, object_id, form_url=form_url, extra_context=extra_context)
-        if request.method == 'POST' and '_affiliate_payed' in request.POST\
+        if request.method == 'POST' and '_affiliate_payed' in request.POST \
                 and isinstance(resp, HttpResponseRedirect):
             # assert, that HttpResponseRedirect means successfull operation
             payment_request = self.get_object(request, unquote(object_id))

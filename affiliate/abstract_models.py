@@ -8,7 +8,7 @@ from django.contrib.sites.models import get_current_site
 from django.utils.html import escape
 from model_utils import Choices
 from relish.decorators import instance_cache
-from .managers import AffiliateStatsManager, AffiliateBannerManager,\
+from .managers import AffiliateStatsManager, AffiliateBannerManager, \
     WithdrawRequestManager
 from .tools import get_affiliate_param_name
 from .signals import affiliate_post_withdraw, affiliate_post_reward
@@ -29,16 +29,16 @@ class AbstractAffiliateStats(models.Model):
     # don't create additional index on fk, as we've already declared
     # compound index, that is started with affiliate
     affiliate = models.ForeignKey(settings.AFFILIATE_MODEL, db_index=False,
-        verbose_name=_("Affiliate"), related_name='stats')
+                                  verbose_name=_("Affiliate"), related_name='stats')
     unique_visitors = models.IntegerField(_("Unique visitors count"),
-        default=0)
+                                          default=0)
     total_views = models.IntegerField(_("Total page views count"),
-        default=0)
+                                      default=0)
     payments_count = models.IntegerField(_("Number of payments"), default=0)
     payments_amount = models.DecimalField(_("Payments amount"),
-        max_digits=16, decimal_places=2, default=D("0.0"))
+                                          max_digits=16, decimal_places=2, default=D("0.0"))
     rewards_amount = models.DecimalField(_("Rewards amount"), max_digits=16,
-        decimal_places=2, default=D("0.0"))
+                                         decimal_places=2, default=D("0.0"))
     date = models.DateField(_("Date"), auto_now_add=True)
 
     objects = AffiliateStatsManager()
@@ -68,21 +68,21 @@ class AbstractAffiliateStats(models.Model):
 
 class AbstractAffiliate(models.Model):
     aid = models.CharField(_("Affiliate code"), max_length=150,
-        unique=True, primary_key=True)
+                           unique=True, primary_key=True)
     total_payments_count = models.IntegerField(
         _("Total attracted payments count"), default=0)
     total_payments_amount = models.DecimalField(
         _("Total attracted payments amount"), max_digits=16, decimal_places=2,
         default=D("0.0"))
     total_payed = models.DecimalField(_("Total payed to affiliate"),
-        max_digits=16, decimal_places=2, default=D("0.0"))
+                                      max_digits=16, decimal_places=2, default=D("0.0"))
     balance = models.DecimalField(_("Current balance"), max_digits=16,
-        decimal_places=2, default=D("0.0"))
+                                  decimal_places=2, default=D("0.0"))
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     reward_amount = models.DecimalField(_("Reward amount"), max_digits=16,
-        decimal_places=2, default=REWARD_AMOUNT)
+                                        decimal_places=2, default=REWARD_AMOUNT)
     reward_percentage = models.BooleanField(_('In percent'),
-        default=REWARD_PERCENTAGE)
+                                            default=REWARD_PERCENTAGE)
 
     class Meta:
         abstract = True
@@ -102,7 +102,7 @@ class AbstractAffiliate(models.Model):
     @instance_cache
     def render_link(self, request=None):
         site = self.get_site(request)
-        return 'http://{domain}?{aid_name}={aid_code}'\
+        return 'http://{domain}?{aid_name}={aid_code}' \
             .format(domain=site.domain, aid_name=AID_NAME, aid_code=self.aid)
 
     def render_html_a(self, request=None):
@@ -113,9 +113,9 @@ class AbstractAffiliate(models.Model):
     def render_img(self, banner, request=None, autoescape=False):
         domain = self.get_site(request).domain.rstrip('/')
         link = self.render_link(request)
-        html = u'<a href="{link}"><img src="{domain}{img_url}" title="{caption}" alt="{caption}"/></a>'\
+        html = u'<a href="{link}"><img src="{domain}{img_url}" title="{caption}" alt="{caption}"/></a>' \
             .format(link=link, domain=domain, img_url=banner.image.url,
-                 caption=banner.caption)
+                    caption=banner.caption)
         if autoescape:
             html = escape(html)
         return html
@@ -183,7 +183,7 @@ class AbstractAffiliate(models.Model):
 
 class AbstractAffiliateBanner(models.Model):
     image = models.ImageField(_("Banner image"),
-        upload_to=BANNER_FOLDER)
+                              upload_to=BANNER_FOLDER)
     caption = models.CharField(_("Caption"), max_length=100)
     enabled = models.BooleanField(_("Enabled"), default=True)
 
@@ -206,11 +206,11 @@ class AbstractWithdrawRequest(models.Model):
     )
 
     affiliate = models.ForeignKey(settings.AFFILIATE_MODEL,
-        verbose_name=_("Affiliate"), related_name='pay_requests')
+                                  verbose_name=_("Affiliate"), related_name='pay_requests')
     status = models.CharField(_("Status"), max_length=10,
-        choices=PAY_STATUS, default=PAY_STATUS.pending)
+                              choices=PAY_STATUS, default=PAY_STATUS.pending)
     amount = models.DecimalField(_("Payed to affiliate"),
-        max_digits=16, decimal_places=2, default=D("0.0"))
+                                 max_digits=16, decimal_places=2, default=D("0.0"))
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     payed_at = models.DateTimeField(_("Payed at"), null=True, blank=True)
 

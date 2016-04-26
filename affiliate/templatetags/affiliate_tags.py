@@ -25,7 +25,7 @@ def url_aff(parser, token):
         viewname = parser.compile_filter(bits[1])
     except TemplateSyntaxError as exc:
         exc.args = (exc.args[0] + ". "
-                "The syntax of 'url' changed in Django 1.5, see the docs."),
+                                  "The syntax of 'url' changed in Django 1.5, see the docs."),
         raise
     args = []
     kwargs = {}
@@ -52,5 +52,5 @@ def url_aff(parser, token):
 @register.simple_tag(takes_context=True)
 def render_banner(context, affiliate, banner, autoescape=False):
     img_html = affiliate.render_img(banner, context['request'],
-        autoescape=autoescape)
+                                    autoescape=autoescape)
     return img_html

@@ -25,7 +25,7 @@ class ProductListView(ListView):
         if pk:
             product = Product.objects.get(pk=pk)
             messages.add_message(request, messages.INFO,
-                _("Product %(product)s was bought" % {"product": product.title}))
+                                 _("Product %(product)s was bought" % {"product": product.title}))
             if request.aid:
                 affiliate = Affiliate.objects.get(aid=request.aid)
                 affiliate.reward_affiliate(product.price)
