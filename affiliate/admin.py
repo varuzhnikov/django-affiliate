@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin, messages
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.admin.util import unquote
+from django.contrib.admin.utils import unquote
 from django.http import HttpResponseRedirect
 from .abstract_models import NotEnoughMoneyError
 
