@@ -4,7 +4,7 @@ from django.utils.timezone import now
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.html import escape
 from model_utils import Choices
 from relish.decorators import instance_cache

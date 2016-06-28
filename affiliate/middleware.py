@@ -3,7 +3,7 @@ import logging
 
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.core.cache import get_cache
+from django.core.cache import caches
 from .tools import get_affiliate_param_name, remove_affiliate_code, \
     get_seconds_day_left, get_affiliate_model, get_affiliatestats_model
 from relish.helpers.request import get_client_ip
@@ -55,7 +55,7 @@ class AffiliateMiddleware(object):
         elif response.status_code == 200 and self.is_track_path(request.path):
             now = datetime.now()
             ip = get_client_ip(request)
-            cache = get_cache('default')
+            cache = caches['default']
             c_key = "".join((C_PFX, aid))
             ip_new, aid_ip_pool = self.is_new_ip(c_key, cache, ip)
             if ip_new:

@@ -1,9 +1,10 @@
 from __future__ import unicode_literals
-from django.template.base import Library, TemplateSyntaxError, kwarg_re
+from django import template
+from django.template.base import TemplateSyntaxError, kwarg_re
 from django.template.defaulttags import URLNode
 from affiliate.tools import add_affiliate_code
 
-register = Library()
+register = template.Library()
 
 
 class AffiliateURLNode(URLNode):
