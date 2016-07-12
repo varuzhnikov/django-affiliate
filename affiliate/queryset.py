@@ -12,10 +12,10 @@ class AffiliateStatsQuerySet(QuerySet):
             kw['unique_visitors'] = F('unique_visitors') + 1
         return self.filter(affiliate=aid, date=date).update(**kw)
 
-    def for_last_days(self, days):
+    def for_last_days(self, aid, days):
         # TODO: for MySQL add FORCE INDEX (affiliate_id)
         days_ago = now() - timedelta(days=days)
-        return self.filter(date__gte=days_ago).order_by("-date")
+        return self.filter(affiliate=aid, date__gte=days_ago).order_by("-date")
 
 
 class WithdrawRequestQuerySet(QuerySet):

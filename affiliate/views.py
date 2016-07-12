@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 from decimal import Decimal as D
 from django.views.generic import FormView
 from django.utils.translation import ugettext_lazy as _
@@ -80,5 +81,5 @@ class AffiliateBaseView(SuccessMessageMixin, FormView):
             context['pay_requests'] = affiliate.pay_requests.all()
             aff_banner_model = self.get_affiliate_banner_model()
             context['banners'] = aff_banner_model.objects.enabled()
-            context['visitor_stats'] = affiliate.stats.for_last_days(30)
+            context['visitor_stats'] = affiliate.stats.for_last_days(affiliate.aid, 30)
         return context
