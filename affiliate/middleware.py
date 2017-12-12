@@ -37,6 +37,16 @@ class AffiliateMiddleware(object):
                     session['aid_dt'] = str_now
                     url = remove_affiliate_code(request.get_full_path())
                     return HttpResponseRedirect(url)
+
+            current_domain = request.get_host().split(':')[0]
+            try:
+                if current_domain in settings.PARTNERS_SETTINGS:
+                    aid = settings.PARTNERS_SETTINGS[current_domain]['aid']
+                    session['aid'] = aid
+                    session['aid_dt'] = str_now
+            except BaseException as e:
+                l.warning("[affiliate][partner_domain] aid not found in partner settings, partner_domain: {}, "
+                          "error: '{}'".format(current_domain, e))
         if not aid and AFFILIATE_SESSION:
             aid = session.get('aid', None)
             if aid:
