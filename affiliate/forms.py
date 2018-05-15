@@ -41,7 +41,7 @@ class AffiliateWithdrawRequestForm(forms.Form):
     def clean(self):
         if self.affiliate is None:
             raise forms.ValidationError(_("Affiliate not found"))
-        if self.affiliate.pay_requests.pending().exists():
+        if self.affiliate.pay_requests.pending(self.affiliate.aid).exists():
             raise forms.ValidationError(_("Request is already sent"))
         return self.cleaned_data
 

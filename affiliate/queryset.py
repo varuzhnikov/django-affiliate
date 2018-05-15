@@ -19,8 +19,8 @@ class AffiliateStatsQuerySet(QuerySet):
 
 
 class WithdrawRequestQuerySet(QuerySet):
-    def pending(self):
-        return self.filter(status=self.model.PAY_STATUS.pending)
+    def pending(self, aid):
+        return self.filter(affiliate=aid, status=self.model.PAY_STATUS.pending)
 
 
 class AffiliateBannerQuerySet(QuerySet):
