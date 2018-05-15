@@ -76,7 +76,7 @@ class AffiliateBaseView(SuccessMessageMixin, FormView):
         if affiliate:
             context['min_request_amount'] = MIN_REQUEST_AMOUNT
             context['currency_label'] = affiliate.get_currency()
-            context['requested'] = affiliate.pay_requests.pending()
+            context['requested'] = affiliate.pay_requests.pending(affiliate.aid)
             context['avaliable_for_request'] = affiliate.balance >= MIN_REQUEST_AMOUNT
             context['pay_requests'] = affiliate.pay_requests.all()
             aff_banner_model = self.get_affiliate_banner_model()
