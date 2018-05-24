@@ -9,7 +9,7 @@ from affiliate.abstract_models import AbstractAffiliate, \
     AbstractAffiliateStats, AbstractAffiliateBanner, AbstractWithdrawRequest
 from affiliate.signals import affiliate_post_reward, affiliate_post_withdraw
 
-l = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class Affiliate(AbstractAffiliate):
@@ -19,8 +19,8 @@ class Affiliate(AbstractAffiliate):
     def create_affiliate(cls, user):
         aff = cls(user=user)
         aff.aid = aff.generate_aid()
-        l.info("Creating affiliate #{0} for user {1}"
-               .format(aff.aid, user))
+        logger.info("Creating affiliate #{0} for user {1}"
+                    .format(aff.aid, user))
         aff.save()
 
 
