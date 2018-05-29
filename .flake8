@@ -3,7 +3,3 @@ exclude =
     example/web_project/config/settings.py
 
 max-line-length = 120
-
-# E12x continuation line indentation
-# E251 no spaces around keyword / parameter equals
-ignore = E12,E251

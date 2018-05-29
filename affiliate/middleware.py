@@ -49,8 +49,10 @@ class AffiliateMiddleware(object):
                     session['aid_dt'] = str_now
                     metrics.bs_affiliate_new_counter.inc()
             except BaseException as e:
-                logger.warning("[affiliate][partner_domain] aid not found in partner settings, partner_domain: {}, "
-                          "error: '{}'".format(current_domain, e))
+                logger.warning(
+                    "[affiliate][partner_domain] aid not found in partner settings, partner_domain: {}, "
+                    "error: '{}'".format(current_domain, e)
+                )
         if not aid and AFFILIATE_SESSION:
             aid = session.get('aid', None)
             if aid:
