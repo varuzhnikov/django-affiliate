@@ -5,6 +5,8 @@ from dateutil import parser
 from django.conf import settings
 from django.core.cache import caches
 from django.http import HttpResponseRedirect
+
+from affiliate.helpers import is_new_ip
 from relish.helpers.request import get_client_ip
 
 import metrics
@@ -50,7 +52,7 @@ class AffiliateMiddleware(object):
                     metrics.bs_affiliate_new_counter.inc()
             except BaseException as e:
                 logger.warning("[affiliate][partner_domain] aid not found in partner settings, partner_domain: {}, "
-                          "error: '{}'".format(current_domain, e))
+                               "error: '{}'".format(current_domain, e))
         if not aid and AFFILIATE_SESSION:
             aid = session.get('aid', None)
             if aid:
@@ -72,7 +74,7 @@ class AffiliateMiddleware(object):
             ip = get_client_ip(request)
             cache = caches['default']
             c_key = "".join((C_PFX, aid))
-            ip_new, aid_ip_pool = self.is_new_ip(c_key, cache, ip)
+            ip_new, aid_ip_pool = is_new_ip(c_key, cache, ip)
             if ip_new:
                 aid_ip_pool.add(ip)
                 timeout = get_seconds_day_left(now)
@@ -91,15 +93,5 @@ class AffiliateMiddleware(object):
 
     def is_track_path(self, path):
         return len(filter(path.startswith, AFFILIATE_SKIP_PATH)) == 0
-
-    def is_new_ip(self, c_key, cache, ip):
-        aid_ip_pool = cache.get(c_key)
-        ip_new = True
-        if aid_ip_pool:
-            if isinstance(aid_ip_pool, set):
-                ip_new = ip not in aid_ip_pool
-        if not aid_ip_pool:
-            aid_ip_pool = set()
-        return ip_new, aid_ip_pool
 
 # TODO: attach lazy method to request: affiliate, that return Affiliate instance
