@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from urlparse import urlparse, parse_qs
-from urllib import urlencode
 from datetime import datetime
-from django.conf import settings
+from urllib.parse import urlparse, parse_qs, urlencode
+
 from django.apps import apps
+from django.conf import settings
 
 AFFILIATE_MODEL = settings.AFFILIATE_MODEL
 AFFILIATE_COUNT_MODEL = settings.AFFILIATE_COUNT_MODEL

@@ -7,9 +7,9 @@ from django.core.cache import caches
 from django.http import HttpResponseRedirect
 
 from affiliate.helpers import is_new_ip
+from affiliate.metrics import bs_affiliate_new_counter, bs_affiliate_wrong_counter
 from relish.helpers.request import get_client_ip
 
-import metrics
 from .tools import get_affiliate_param_name, remove_affiliate_code, \
     get_seconds_day_left, get_affiliate_model, get_affiliatestats_model
 
@@ -40,7 +40,7 @@ class AffiliateMiddleware(object):
                     session['aid'] = aid
                     session['aid_dt'] = str_now
                     url = remove_affiliate_code(request.get_full_path())
-                    metrics.bs_affiliate_new_counter.inc()
+                    bs_affiliate_new_counter.inc()
                     return HttpResponseRedirect(url)
 
             current_domain = request.get_host().split(':')[0]
@@ -49,7 +49,7 @@ class AffiliateMiddleware(object):
                     aid = settings.PARTNERS_SETTINGS[current_domain]['aid']
                     session['aid'] = aid
                     session['aid_dt'] = str_now
-                    metrics.bs_affiliate_new_counter.inc()
+                    bs_affiliate_new_counter.inc()
             except BaseException as e:
                 logger.warning(
                     "[affiliate][partner_domain] aid not found in partner settings, partner_domain: {}, "
@@ -64,7 +64,7 @@ class AffiliateMiddleware(object):
                     aid = None
                     session.pop('aid')
                     session.pop('aid_dt')
-                    metrics.bs_affiliate_wrong_counter.inc()
+                    bs_affiliate_wrong_counter.inc()
         request.aid = aid
 
     def process_response(self, request, response):
