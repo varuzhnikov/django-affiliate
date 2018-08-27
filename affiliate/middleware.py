@@ -94,6 +94,6 @@ class AffiliateMiddleware(object):
         return response
 
     def is_track_path(self, path):
-        return len(filter(path.startswith, AFFILIATE_SKIP_PATH)) == 0
+        return len(list(filter(path.startswith, AFFILIATE_SKIP_PATH))) == 0
 
 # TODO: attach lazy method to request: affiliate, that return Affiliate instance
