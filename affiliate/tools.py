@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from urlparse import urlparse, parse_qs
-from urllib import urlencode
+from urllib.parse import parse_qs, urlencode, urlparse
 from datetime import datetime
 from django.conf import settings
 from django.apps import apps
