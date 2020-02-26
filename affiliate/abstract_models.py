@@ -29,7 +29,7 @@ class AbstractAffiliateStats(models.Model):
     # don't create additional index on fk, as we've already declared
     # compound index, that is started with affiliate
     affiliate = models.ForeignKey(settings.AFFILIATE_MODEL, db_index=False,
-                                  verbose_name=_("Affiliate"), related_name='stats')
+                                  verbose_name=_("Affiliate"), related_name='stats', on_delete=models.DO_NOTHING)
     unique_visitors = models.IntegerField(_("Unique visitors count"),
                                           default=0)
     total_views = models.IntegerField(_("Total page views count"),
@@ -206,7 +206,7 @@ class AbstractWithdrawRequest(models.Model):
     )
 
     affiliate = models.ForeignKey(settings.AFFILIATE_MODEL,
-                                  verbose_name=_("Affiliate"), related_name='pay_requests')
+                                  verbose_name=_("Affiliate"), related_name='pay_requests', on_delete=models.DO_NOTHING)
     status = models.CharField(_("Status"), max_length=10,
                               choices=PAY_STATUS, default=PAY_STATUS.pending)
     amount = models.DecimalField(_("Payed to affiliate"),
